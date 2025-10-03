@@ -47,7 +47,7 @@ import BayerShader from "../components/BayerShader.astro";
                         Tell us about your project and we'll get back to you within 24 hours.
                     </p>
 
-                    <form id="contact-form" class="space-y-8">
+                    <form id="contact-form" class="space-y-8" action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
                     <div>
                         <label for="name" class="font-mono text-sm uppercase tracking-wider block mb-2">
                             Name
@@ -123,52 +123,17 @@ import BayerShader from "../components/BayerShader.astro";
 </Layout>
 
 <script>
-    const form = document.getElementById('contact-form') as HTMLFormElement;
-    const formMessage = document.getElementById('form-message') as HTMLDivElement;
+    const form = document.getElementById('contact-form');
+    const formMessage = document.getElementById('form-message');
 
-    form.addEventListener('submit', async (e) => {
-        e.preventDefault();
-
-        const formData = new FormData(form);
-        const data = {
-            name: formData.get('name') as string,
-            email: formData.get('email') as string,
-            message: formData.get('message') as string,
-        };
-
-        const button = form.querySelector('button[type="submit"]') as HTMLButtonElement;
+    form.addEventListener('submit', function(e) {
+        // For Formspree, we'll just update the UI since Formspree handles the submission
+        const button = form.querySelector('button[type="submit"]');
         const originalText = button.textContent;
         button.textContent = 'Sending...';
         button.disabled = true;
-
-        try {
-            const response = await fetch('/api/contact', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(data),
-            });
-
-            const result = await response.json();
-
-            if (response.ok) {
-                formMessage.textContent = 'Message sent successfully! We\'ll be in touch soon.';
-                formMessage.classList.remove('hidden', 'text-red-500');
-                formMessage.classList.add('text-green-600');
-                form.reset();
-            } else {
-                formMessage.textContent = result.error || 'Failed to send message. Please try again.';
-                formMessage.classList.remove('hidden', 'text-green-600');
-                formMessage.classList.add('text-red-500');
-            }
-        } catch (error) {
-            formMessage.textContent = 'Failed to send message. Please try again.';
-            formMessage.classList.remove('hidden', 'text-green-600');
-            formMessage.classList.add('text-red-500');
-        } finally {
-            button.textContent = originalText;
-            button.disabled = false;
-        }
+        
+        // Reset message display
+        formMessage.classList.remove('hidden', 'text-red-500', 'text-green-600');
     });
 </script>
