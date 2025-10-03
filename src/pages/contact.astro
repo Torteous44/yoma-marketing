@@ -1,0 +1,174 @@
+---
+import Layout from "../layouts/Layout.astro";
+import ScrollNavbar from "../components/ScrollNavbar.astro";
+import Section from "../components/Section.astro";
+import BayerShader from "../components/BayerShader.astro";
+---
+
+<Layout title="Contact - Yoma Solutions">
+    <ScrollNavbar />
+
+    <main class="flex flex-col items-center bg-[#0a0a0a] gap-2 pt-14 px-2 pb-4">
+        <nav class="absolute top-3 left-4 right-2 z-50 flex items-center justify-between">
+            <a href="/">
+                <img src="/LogoWhite.svg" alt="Yoma Solutions" class="h-8 w-auto" />
+            </a>
+            <div class="flex items-center gap-6">
+                <a
+                    href="/#services"
+                    class="font-mono text-sm text-white hover:opacity-70 transition-opacity uppercase tracking-wider"
+                    >Services</a
+                >
+                <a
+                    href="/#about"
+                    class="font-mono text-sm text-white hover:opacity-70 transition-opacity uppercase tracking-wider"
+                    >About</a
+                >
+                <a
+                    href="/contact"
+                    class="font-mono text-sm text-black bg-white px-4 py-2 rounded-lg hover:opacity-90 transition-opacity uppercase tracking-wider"
+                    >Contact</a
+                >
+            </div>
+        </nav>
+
+        <Section class="min-h-[100svh] flex items-center relative overflow-hidden">
+            <!-- Shader spans entire section -->
+            <div class="absolute inset-0 z-0">
+                <BayerShader color="#000000" pixelSize={4} fadeDirection="left" />
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 w-full px-8 py-16 relative z-10">
+                <div>
+                    <h1 class="font-clash text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-light mb-8">
+                        Let's Talk
+                    </h1>
+                    <p class="font-clash text-xl sm:text-2xl font-light mb-16 text-gray-600">
+                        Tell us about your project and we'll get back to you within 24 hours.
+                    </p>
+
+                    <form id="contact-form" class="space-y-8">
+                    <div>
+                        <label for="name" class="font-mono text-sm uppercase tracking-wider block mb-2">
+                            Name
+                        </label>
+                        <input
+                            type="text"
+                            id="name"
+                            name="name"
+                            required
+                            class="w-full px-4 py-3 bg-transparent border border-gray-300 rounded-lg focus:outline-none focus:border-black transition-colors font-clash"
+                        />
+                    </div>
+
+                    <div>
+                        <label for="email" class="font-mono text-sm uppercase tracking-wider block mb-2">
+                            Email
+                        </label>
+                        <input
+                            type="email"
+                            id="email"
+                            name="email"
+                            required
+                            class="w-full px-4 py-3 bg-transparent border border-gray-300 rounded-lg focus:outline-none focus:border-black transition-colors font-clash"
+                        />
+                    </div>
+
+                    <div>
+                        <label for="message" class="font-mono text-sm uppercase tracking-wider block mb-2">
+                            Message
+                        </label>
+                        <textarea
+                            id="message"
+                            name="message"
+                            required
+                            rows="6"
+                            class="w-full px-4 py-3 bg-transparent border border-gray-300 rounded-lg focus:outline-none focus:border-black transition-colors font-clash resize-none"
+                        ></textarea>
+                    </div>
+
+                    <div id="form-message" class="hidden font-mono text-sm"></div>
+
+                    <button
+                        type="submit"
+                        class="font-mono px-8 py-3 text-sm uppercase tracking-wider bg-black text-white rounded-lg hover:opacity-90 transition-opacity duration-200"
+                    >
+                        Send Message
+                    </button>
+                </form>
+                </div>
+            </div>
+        </Section>
+
+        <!-- Footer -->
+        <footer class="w-full bg-[#0a0a0a] text-white rounded-xl mt-2 py-8 px-4">
+            <div class="flex items-center justify-between">
+                <img src="/LogoWhite.svg" alt="Yoma Solutions" class="h-8 w-auto" />
+
+                <div class="flex items-center gap-8">
+                    <a
+                        href="/contact"
+                        class="font-mono text-sm hover:opacity-70 transition-opacity uppercase tracking-wider"
+                    >
+                        Contact
+                    </a>
+
+                    <span class="font-mono text-sm text-gray-500 uppercase tracking-wider">
+                        © 2025
+                    </span>
+                </div>
+            </div>
+        </footer>
+    </main>
+</Layout>
+
+<script>
+    const form = document.getElementById('contact-form') as HTMLFormElement;
+    const formMessage = document.getElementById('form-message') as HTMLDivElement;
+
+    form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+
+        const formData = new FormData(form);
+        const data = {
+            name: formData.get('name') as string,
+            email: formData.get('email') as string,
+            message: formData.get('message') as string,
+        };
+
+        const button = form.querySelector('button[type="submit"]') as HTMLButtonElement;
+        const originalText = button.textContent;
+        button.textContent = 'Sending...';
+        button.disabled = true;
+
+        try {
+            const response = await fetch('/api/contact', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(data),
+            });
+
+            const result = await response.json();
+
+            if (response.ok) {
+                formMessage.textContent = 'Message sent successfully! We\'ll be in touch soon.';
+                formMessage.classList.remove('hidden', 'text-red-500');
+                formMessage.classList.add('text-green-600');
+                form.reset();
+            } else {
+                formMessage.textContent = result.error || 'Failed to send message. Please try again.';
+                formMessage.classList.remove('hidden', 'text-green-600');
+                formMessage.classList.add('text-red-500');
+            }
+        } catch (error) {
+            formMessage.textContent = 'Failed to send message. Please try again.';
+            formMessage.classList.remove('hidden', 'text-green-600');
+            formMessage.classList.add('text-red-500');
+        } finally {
+            button.textContent = originalText;
+            button.disabled = false;
+        }
+    });
+</script>
