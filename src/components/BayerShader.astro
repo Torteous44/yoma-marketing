@@ -175,7 +175,7 @@ const { color = "#0a0a0a", pixelSize = 4, fadeDirection = "top" } = Astro.props;
         if (uFadeDirection == 1) {
           // Fade from left
           float normalizedX = gl_FragCoord.x / uResolution.x;
-          float fadeDistance = 1.0;
+          float fadeDistance = 1.8;
           fade = smoothstep(0.0, fadeDistance, normalizedX);
         } else {
           // Fade from top
