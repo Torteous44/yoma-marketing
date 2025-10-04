@@ -8,7 +8,9 @@
 >
     <div class="flex items-center justify-between pr-3 pl-2 py-2 mx-2">
         <img src="/LogoWhite.svg" alt="Yoma Solutions" class="h-8 w-auto" />
-        <div class="flex items-center gap-6">
+
+        <!-- Desktop Navigation -->
+        <div class="hidden md:flex items-center gap-6">
             <a
                 href="#services"
                 class="font-mono text-sm text-white hover:opacity-70 transition-opacity uppercase tracking-wider"
@@ -22,6 +24,41 @@
             <a
                 href="/contact"
                 class="font-mono text-sm text-black bg-white px-4 py-2 rounded-lg hover:opacity-90 transition-opacity uppercase tracking-wider mix-blend-normal isolate"
+                >Contact</a
+            >
+        </div>
+
+        <!-- Mobile Menu Button -->
+        <button
+            id="scroll-mobile-menu-btn"
+            class="md:hidden p-2 text-white hover:opacity-70 transition-opacity mix-blend-normal isolate"
+            aria-label="Toggle menu"
+        >
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+            </svg>
+        </button>
+    </div>
+
+    <!-- Mobile Menu Dropdown -->
+    <div
+        id="scroll-mobile-menu"
+        class="md:hidden hidden bg-black/95 backdrop-blur-sm mix-blend-normal"
+    >
+        <div class="flex flex-col gap-4 px-4 py-6">
+            <a
+                href="#services"
+                class="font-mono text-sm text-white hover:opacity-70 transition-opacity uppercase tracking-wider py-2"
+                >Services</a
+            >
+            <a
+                href="#about"
+                class="font-mono text-sm text-white hover:opacity-70 transition-opacity uppercase tracking-wider py-2"
+                >About</a
+            >
+            <a
+                href="/contact"
+                class="font-mono text-sm text-center text-black bg-white px-4 py-3 rounded-lg hover:opacity-90 transition-opacity uppercase tracking-wider"
                 >Contact</a
             >
         </div>
@@ -48,4 +85,19 @@
         },
         { passive: true },
     );
+
+    // Mobile menu toggle for scroll navbar
+    const scrollMobileMenuBtn = document.getElementById("scroll-mobile-menu-btn");
+    const scrollMobileMenu = document.getElementById("scroll-mobile-menu");
+
+    scrollMobileMenuBtn?.addEventListener("click", () => {
+        scrollMobileMenu?.classList.toggle("hidden");
+    });
+
+    // Close mobile menu when clicking a link
+    scrollMobileMenu?.querySelectorAll("a").forEach((link) => {
+        link.addEventListener("click", () => {
+            scrollMobileMenu?.classList.add("hidden");
+        });
+    });
 </script>
