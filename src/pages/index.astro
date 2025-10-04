@@ -163,11 +163,17 @@ import ScrollNavbar from "../components/ScrollNavbar.astro";
             id="about"
             class="min-h-[60svh] md:min-h-[80svh] flex items-center relative overflow-hidden py-12 md:py-16"
         >
+            <img
+                src="/circleDithered.svg"
+                alt=""
+                class="hidden lg:block absolute left-[5%] xl:left-[5%] top-1/2 -translate-y-1/2 w-[35vw] xl:w-[30vw] h-auto pointer-events-none opacity-90"
+            />
+
             <div
-                class="max-w-screen-xl w-full px-6 sm:px-8 md:px-12 lg:px-16 relative z-10"
+                class="px-6 sm:px-8 md:px-12 lg:px-12 lg:pl-[45%] relative z-10 mr-30"
             >
                 <p
-                    class="font-clash text-lg sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl font-light leading-relaxed text-left max-w-full md:max-w-xl lg:max-w-2xl"
+                    class="font-clash text-lg sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl font-light leading-relaxed text-left w-full"
                 >
                     We guide products through their full lifecycle <span
                         class="text-zinc-500"
@@ -177,49 +183,23 @@ import ScrollNavbar from "../components/ScrollNavbar.astro";
                     >
                 </p>
             </div>
-
-            <img
-                src="/circleDithered.svg"
-                alt=""
-                class="hidden lg:block absolute right-[5%] xl:right-[10%] top-1/2 -translate-y-1/2 w-[35vw] xl:w-[30vw] h-auto pointer-events-none opacity-90"
-            />
         </Section>
 
-        <Section class="min-h-[100svh] flex items-center">
-            <div class="max-w-screen-xl w-full px-8 py-16">
+        <Section
+            class="min-h-[100svh] flex items-center relative overflow-hidden"
+        >
+            <div
+                class="max-w-screen-xl w-full px-4 sm:px-6 md:px-8 py-12 sm:py-16 md:py-20 relative z-10"
+            >
                 <h2
-                    class="font-clash text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-light mb-16"
+                    class="font-clash text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-light mb-8 sm:mb-12 md:mb-16 max-w-3xl"
                 >
                     For Founders Without a Tech Team
                 </h2>
 
-                <div class="space-y-12 mb-16">
-                    <div>
-                        <p
-                            class="font-mono text-sm uppercase tracking-wider text-gray-500 mb-4"
-                        >
-                            The Situation
-                        </p>
-                        <ul
-                            class="space-y-4 font-clash text-lg sm:text-xl md:text-2xl font-light"
-                        >
-                            <li>"I have a great idea but no tech team."</li>
-                            <li>"I want an MVP / product to pitch with."</li>
-                            <li>
-                                "I don't understand design/engineering, but I
-                                know I need it."
-                            </li>
-                            <li>
-                                "I need someone who feels like a co-founder, not
-                                a contractor."
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-
-                <div class="border-t border-gray-200 pt-12">
+                <div class="border-t border-gray-200 pt-8 sm:pt-10 md:pt-12">
                     <p
-                        class="font-clash text-xl sm:text-2xl md:text-3xl lg:text-4xl font-light leading-relaxed indent-48"
+                        class="font-clash text-lg sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl font-light leading-relaxed indent-12 sm:indent-24 md:indent-36 lg:indent-48 max-w-4xl"
                     >
                         We're the technical team for ambitious business minds.
                         You bring the pitch deck. We build the product —
@@ -228,6 +208,13 @@ import ScrollNavbar from "../components/ScrollNavbar.astro";
                     </p>
                 </div>
             </div>
+
+            <img
+                src="/Guy.svg"
+                alt=""
+                class="absolute right-[-10%] sm:right-[-5%] md:right-0 lg:right-[5%] bottom-0 w-[50vw] sm:w-[45vw] md:w-[35vw] lg:w-[28vw] xl:w-[25vw] h-auto pointer-events-none opacity-90"
+                style="image-rendering: -webkit-optimize-contrast; image-rendering: crisp-edges; image-rendering: pixelated;"
+            />
         </Section>
 
         <Section id="services" class="min-h-[100svh] flex items-center">
