@@ -38,14 +38,12 @@ import BayerShader from "../components/BayerShader.astro";
             </div>
         </nav>
 
-        <Section
-            class="min-h-[100svh] flex items-center relative overflow-hidden"
-        >
+        <Section class="flex items-center relative overflow-hidden py-16">
             <!-- Shader spans entire section -->
             <div class="absolute inset-0 z-0">
                 <BayerShader
                     color="#000000"
-                    pixelSize={2}
+                    pixelSize={5}
                     fadeDirection="left"
                 />
             </div>
